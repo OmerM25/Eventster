@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2ohAeYcZFHRjyBxbldvcfx7aBJe93l/I1gfCMuhHOLYyIo2vTCP9+tgyFbjBr5cilRlE6UrjboLx5Aq03qXr8Q==",
+  "success": true,
+  "projectFilePath": "D:\\מדעי המחשב\\פיתוח אפליקציות אינטרנטיות\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ImOme\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
