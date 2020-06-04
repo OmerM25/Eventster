@@ -1,0 +1,7 @@
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.csprojAssemblyReference.cache
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.AssemblyInfoInputs.cache
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.AssemblyInfo.cs
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.csproj.CoreCompileInputs.cache
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.MvcApplicationPartsAssemblyInfo.cache
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.RazorAssemblyInfo.cache
+C:\מכללה\שנה ב\סמסטר ב\אפליקציות\GitProject\Eventster\Eventster\Eventster\obj\Debug\netcoreapp3.1\Eventster.RazorAssemblyInfo.cs
