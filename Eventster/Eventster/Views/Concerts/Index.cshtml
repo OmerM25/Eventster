@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Eventster.Models.Concert>
+@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
+
+@{ ViewData["Title"] = "Concerts"; }
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Context.Session.GetString(UsersController.SessionName) != null)
+{
+<p>
+    <a asp-action="Create">Create New</a>
+</p>}
+
+<form>
+    Search: <input type="text" name="SearchString">
+    <input type="submit" value="Filter" />
+    <a asp-controller="Concerts" asp-action="Index">Clear</a>
+</form>
+
+<form class="multi-search" asp-action="MultiSearch">
+    --- Multi search ---
+    <div class="form-group">
+        <label class="control-label">Concert country:</label>
+        <select id="concert-countries" name="country" onchange="LoadConcertsCityByCountry(this.value)" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Concert City:</label>
+        <select id="concert-cities" name="city" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Concert artistRank: </label>
+        <input type="number" value="3" min="1" max="5" id="artistRank" name="artistRank">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-default" />
+        <a asp-controller="Concets" asp-action="Index">Clear</a>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistRank)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Country)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.City)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ArtistRank)
+    </td>
+    <td>
+        @if (Context.Session.GetString(UsersController.SessionName) != null)
+        {
+<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> <span>|</span>}
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+    </td>
+</tr>}
+    </tbody>
+</table>
+
+<script>$.ajax({
+        type: "GET",
+        url: "/Concerts/GetAllConcertCountries",
+        success: function (countries) {
+            LoadConcertsCityByCountry(countries[0]);
+            countries.forEach(country => {
+                $("#concert-countries").append("<option>" + country + "</option>");
+            });
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });
+
+    function LoadConcertsCityByCountry(country) {
+        $.ajax({
+            type: "GET",
+            url: "/Concerts/GetAllConcertsCitiesByCountry?country=" + country,
+            success: function (cities) {
+                $("#concert-cities").html("");
+                cities.forEach(city => {
+                    $("#concert-cities").append("<option>" + city + "</option>");
+                });
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }</script>
