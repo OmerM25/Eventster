@@ -4965,11 +4965,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
+      "projectUniqueName": "C:\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
       "projectName": "Eventster",
-      "projectPath": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
+      "projectPath": "C:\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
       "packagesPath": "C:\\Users\\moran\\.nuget\\packages\\",
-      "outputPath": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\obj\\",
+      "outputPath": "C:\\Eventster\\Eventster\\Eventster\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
