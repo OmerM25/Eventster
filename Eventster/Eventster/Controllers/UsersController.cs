@@ -63,7 +63,7 @@ namespace Eventster.Controllers
         // POST: Users/Insert | Insert a new user by a given user object
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Insert([Bind("UserName,Password")] User user)
+        public async Task<IActionResult> Create([Bind("UserName,Password")] User user)
         {
             // Check if user already logged in
             if (checkSession().isLogin)
@@ -83,7 +83,7 @@ namespace Eventster.Controllers
         }
 
         // GET: Users/Update/2 | Get update view for user by id
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -101,7 +101,7 @@ namespace Eventster.Controllers
         // POST: Users/Update/2 | Update a user by id with the parameters to update
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(string id, [Bind("UserName,Password")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password")] User user)
         {
             // Check if user already logged in
             if (checkSession().isLogin)

@@ -91,7 +91,7 @@ namespace Eventster.Controllers
         }
 
         // GET: Concerts/Edit/2 | Return the update view of the concert
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -109,7 +109,7 @@ namespace Eventster.Controllers
         // POST: Concerts/Edit/2 | Update the concert by id and the new concert object
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, [Bind("Id,Name,Country,City,Address,DateTime,ArtistRank,XCord,YCord")] Concert concert)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,City,Address,DateTime,ArtistRank,XCord,YCord")] Concert concert)
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
             {
