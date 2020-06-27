@@ -1,0 +1,67 @@
+﻿@model Eventster.Models.Concert
+
+@{ ViewData["Title"] = "Edit Concert"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Concert</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArtistRank" class="control-label"></label>
+                <input asp-for="ArtistRank" class="form-control" />
+                <span asp-validation-for="ArtistRank" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="XCord" class="control-label"></label>
+                <input asp-for="XCord" class="form-control" />
+                <span asp-validation-for="XCord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YCord" class="control-label"></label>
+                <input asp-for="YCord" class="form-control" />
+                <span asp-validation-for="YCord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
