@@ -4959,25 +4959,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\moran\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\ImOme\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
+      "projectUniqueName": "D:\\מדעי המחשב\\פיתוח אפליקציות אינטרנטיות\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
       "projectName": "Eventster",
-      "projectPath": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
-      "packagesPath": "C:\\Users\\moran\\.nuget\\packages\\",
-      "outputPath": "C:\\מכללה\\שנה ב\\סמסטר ב\\אפליקציות\\GitProject\\Eventster\\Eventster\\Eventster\\obj\\",
+      "projectPath": "D:\\מדעי המחשב\\פיתוח אפליקציות אינטרנטיות\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
+      "packagesPath": "C:\\Users\\ImOme\\.nuget\\packages\\",
+      "outputPath": "D:\\מדעי המחשב\\פיתוח אפליקציות אינטרנטיות\\Eventster\\Eventster\\Eventster\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\moran\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\ImOme\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
