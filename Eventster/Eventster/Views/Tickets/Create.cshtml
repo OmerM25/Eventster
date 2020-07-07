@@ -1,0 +1,79 @@
+﻿@model Eventster.Models.Ticket
+
+@{ ViewData["Title"] = "Create Ticket"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input id="ticket-id" asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Concert" class="control-label"></label>
+                <select id="concert-id" onchange="GetLastTicket(this.value)" asp-for="ConcertId" class="form-control" asp-items="ViewBag.ConcertId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketType" class="control-label"></label>
+                <select id="ticket-type-id" asp-for="TicketTypeId" onchange="GetTicketTypePrice(this.value)" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketType.Price" class="control-label"></label>
+                <div id="ticket-price"></div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketsLeft" class="control-label"></label>
+                <input asp-for="TicketsLeft" class="form-control" />
+                <span asp-validation-for="TicketsLeft" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>GetLastTicket($("#concert-id").val());
+    GetTicketTypePrice($("#ticket-type-id").val());
+
+    function GetLastTicket(concertId) {
+        $.ajax({
+            type: "GET",
+            url: "/Tickets/GetLastTicketIdInConcert?concertId=" + concertId,
+            success: function (lastTicketId) {
+                var newTicketIdSeq = lastTicketId + 1;
+                $("#ticket-id").val(newTicketIdSeq);
+                $("#ticket-id").attr("min", newTicketIdSeq);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }
+
+    function GetTicketTypePrice(ticketTypeId) {
+        $.ajax({
+            type: "GET",
+            url: "/TicketTypes/GetTicketTypePrice?ticketTypeId=" + ticketTypeId,
+            success: function (price) {
+                $("#ticket-price").html(price);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

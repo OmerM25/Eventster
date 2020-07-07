@@ -204,7 +204,7 @@ namespace Eventster.Controllers
             return _context.Ticket.Any(t => (t.Id == id) && (t.ConcertId == concertId));
         }
 
-        public int GetLastTicketNumberInConcert(int concertId)
+        public int GetLastTicketIdInConcert(int concertId)
         {
             var query = _context.Ticket.Where(ticket => (ticket.ConcertId == concertId));
 
@@ -238,10 +238,10 @@ namespace Eventster.Controllers
             }
         }
 
-        public async Task<IActionResult> MultiSearch(string concertState, string ticketTypeName, int price)
+        public async Task<IActionResult> MultiSearch(string concertCountry, string ticketTypeName, int price)
         {
             var tickets = _context.Ticket.Include(ticket => ticket.Concert).Include(ticket => ticket.TicketType).
-                Where(ticket => ticket.Concert.Country.Equals(concertState) &&
+                Where(ticket => ticket.Concert.Country.Equals(concertCountry) &&
                 ticket.TicketType.Type.Equals(ticketTypeName) &&
                 ticket.TicketType.Price <= price).
                 OrderBy(ticket => ticket.ConcertId).ThenBy(ticket => ticket.Id);
