@@ -23,7 +23,7 @@ namespace Eventster.Models
         [Display(Name = "Number of Tickets")]
         [Range(1, 10)]
         [Required]
-        public int TicketsNumber { get; set; }
+        public int TicketsAmount { get; set; }
 
         public Concert Concert { get; set; }
         public Ticket Ticket{ get; set; }
