@@ -1,3 +1,10 @@
+DROP TABLE User
+DROP TABLE Concert
+DROP TABLE Ticket
+DROP TABLE TicketType
+DROP TABLE Booking
+DROP TABLE Client
+
 CREATE TABLE [dbo].[User] (
     [UserName] CHAR (15) NOT NULL,
     [Password] CHAR (20) NOT NULL,
@@ -44,8 +51,8 @@ CREATE TABLE [dbo].[Ticket] (
     [ConcertId]    INT NOT NULL,
     [TicketTypeId] INT NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Ticket_ToTable] FOREIGN KEY ([ConcertId]) REFERENCES [dbo].[Concert] ([Id]),
-    CONSTRAINT [FK_Ticket_ToTable_1] FOREIGN KEY ([TicketTypeId]) REFERENCES [dbo].[TicketType] ([Id])
+    CONSTRAINT [FK_Ticket_ToTable] FOREIGN KEY ([ConcertId]) REFERENCES [dbo].[Concert] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Ticket_ToTable_1] FOREIGN KEY ([TicketTypeId]) REFERENCES [dbo].[TicketType] ([Id]) ON DELETE CASCADE
 );
 
 
@@ -56,8 +63,8 @@ CREATE TABLE [dbo].[Booking] (
     [TicketId]      INT       NOT NULL,
     [TicketsAmount] INT       NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Table_ToTable] FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Client] ([Id]),
-    CONSTRAINT [FK_Table_ToTable_1] FOREIGN KEY ([ConcertId]) REFERENCES [dbo].[Concert] ([Id]),
-    CONSTRAINT [FK_Table_ToTable_2] FOREIGN KEY ([TicketId]) REFERENCES [dbo].[Ticket] ([Id])
+    CONSTRAINT [FK_Table_ToTable] FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Client] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Table_ToTable_1] FOREIGN KEY ([ConcertId]) REFERENCES [dbo].[Concert] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Table_ToTable_2] FOREIGN KEY ([TicketId]) REFERENCES [dbo].[Ticket] ([Id]) ON DELETE CASCADE
 );
 

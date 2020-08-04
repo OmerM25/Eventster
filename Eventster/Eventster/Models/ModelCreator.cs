@@ -23,8 +23,8 @@ namespace Eventster.Models
             modelBuilder.Entity<User>().HasKey(user => new { user.UserName });
 
             // Relations definition
-            modelBuilder.Entity<Ticket>().HasOne(ticket => ticket.Concert).WithMany().HasForeignKey(ticket => ticket.ConcertId);
-            modelBuilder.Entity<Ticket>().HasOne(ticket => ticket.TicketType).WithMany().HasForeignKey(ticket => ticket.TicketTypeId);
+            modelBuilder.Entity<Ticket>().HasOne(ticket => ticket.Concert).WithMany().HasForeignKey(ticket => ticket.ConcertId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Ticket>().HasOne(ticket => ticket.TicketType).WithMany().HasForeignKey(ticket => ticket.TicketTypeId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Booking>().HasOne(booking => booking.Concert).WithMany().HasForeignKey(booking => booking.ConcertId);
             modelBuilder.Entity<Booking>().HasOne(booking => booking.Ticket).WithMany().HasForeignKey(booking => new { booking.TicketId, booking.ConcertId });
             modelBuilder.Entity<Booking>().HasOne(booking => booking.Client).WithMany().HasForeignKey(booking => booking.ClientId);
