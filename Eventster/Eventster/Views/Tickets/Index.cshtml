@@ -65,34 +65,36 @@
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Concert.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Concert.Country)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketType.Type)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketType.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketsLeft)
-    </td>
-    <td>
-        @if (Context.Session.GetString(UsersController.SessionName) != null)
-        {
-@Html.ActionLink("Edit", "Edit/" + item.Id + "/" + item.ConcertId) <span>|</span>
-                    @Html.ActionLink("Delete", "Delete/" + item.Id + "/" + item.ConcertId) <span>|</span>}
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Concert.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Concert.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketType.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketType.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketsLeft)
+                </td>
+                <td>
 
-        @Html.ActionLink("Details", "Details/" + item.Id + "/" + item.ConcertId)
-    </td>
-</tr>}
+                    @if (Context.Session.GetString(UsersController.SessionName) != null)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-concertId="@item.ConcertId">Edit</a> <span>|</span>
+                        <a asp-action="Delete" asp-route-id="@item.Id" asp-route-concertId="@item.ConcertId">Delete</a> <span>|</span>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-route-concertId="@item.ConcertId">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
