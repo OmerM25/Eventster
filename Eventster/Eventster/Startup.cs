@@ -61,8 +61,8 @@ namespace Eventster
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             }).AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = "812673559262025";
-                facebookOptions.AppSecret = "8c6050458c2715bc4b599aa25e1d5359";
+                facebookOptions.AppId = "924834958036662";
+                facebookOptions.AppSecret = "bf1e958a5e17e98584e3129a9cd3636f";
             }).AddCookie();
 
             services.AddMvc();
