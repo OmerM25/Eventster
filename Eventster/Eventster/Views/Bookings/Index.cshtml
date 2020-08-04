@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Eventster.Models.Booking>
+
+@{ ViewData["Title"] = "Bookings"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form>
+    Search: <input type="text" name="SearchString">
+    <input type="submit" value="Filter" />
+    <a asp-controller="Bookings" asp-action="Index">Clear</a>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketsAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concert.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concert.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket.TicketType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketsAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Concert.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Concert.Country)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Ticket.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Ticket.TicketType.Type)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.Id)
+    </td>
+    <td>
+        <a asp-controller="Bookings" asp-action="Delete" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Delete</a> |
+        <a asp-controller="Bookings" asp-action="Details" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Details</a>
+        <a asp-controller="Bookings" asp-action="Edit" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Edit</a>                
+    </td>
+</tr>}
+    </tbody>
+</table>

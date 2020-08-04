@@ -18,16 +18,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Concerts" asp-action="Index">Concerts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Tickets</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Tickets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About us</a>
                         </li>
-                       @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             ViewBag.profileUrl = "https://graph.facebook.com/" + User.Identities.ElementAt(0).Claims.ElementAt(0).Value + "/picture??width=100&amp;height=100";
                             <li><a asp-area="" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
-                            <li><img alt="" class="facebook-profile" src="@ViewBag.profileUrl" /></li> 
+                            <li><img alt="" class="facebook-profile" src="@ViewBag.profileUrl" /></li>
                         }
                         else
                         {

@@ -31,7 +31,7 @@ namespace Eventster.Controllers
             _context = context;
         }
 
-        // GET: Reservations
+        // GET: Bookings
         public async Task<IActionResult> Index(string searchString)
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
@@ -97,7 +97,7 @@ namespace Eventster.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            TempData["ErrMessageReservation"] = "";
+            TempData["ErrMessageBooking"] = "";
             ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Name");
             ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Name");
             ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Id");
@@ -115,7 +115,7 @@ namespace Eventster.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest("Reservation parameters are not valid");
+                    return BadRequest("Booking parameters are not valid");
                 }
                 else
                 {
@@ -258,12 +258,10 @@ namespace Eventster.Controllers
                     return false;
                 }
 
-                int tickets = booking.TicketsAmount;
                 int pricePerTicket = ticket.TicketType.Price;
-                int price = pricePerTicket * tickets;
+                int total_booking_price = pricePerTicket * booking.TicketsAmount;
 
-                ViewBag.price = price;
-                ViewBag.tickets = tickets;
+                ViewBag.total_booking_price = total_booking_price;
                 ViewBag.pricePerTicket = pricePerTicket;
 
                 return true;

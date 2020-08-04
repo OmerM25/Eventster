@@ -1,0 +1,44 @@
+﻿@model Eventster.Models.Booking
+@{ ViewData["Title"] = "Check Out Booking"; }
+<h2>@ViewData["Title"]</h2>
+<div class="ErrMsg">
+    @TempData["ErrMessageBooking"]
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" id="client-id" asp-for="ClientId" />
+            <input type="hidden" id="concert-id" asp-for="ConcertId" />
+            <input type="hidden" id="ticket-id" asp-for="TicketId" />
+            <input type="hidden" id="checkin-date" asp-for="TicketsAmount" />
+            <h4>Booking</h4>
+            <hr />
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(model => model.TicketsAmount): </label> @Html.DisplayFor(model => model.TicketsAmount)
+            </div>
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(model => model.ClientId): </label> @Html.DisplayFor(model => model.ClientId)
+            </div>
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(model => model.Ticket.TicketType): </label> @Html.DisplayFor(model => model.Ticket.TicketType.Type)
+            </div>
+            <div class="form-group">
+                <label>Price per ticket: </label> @ViewBag.pricePerTicket$
+            </div>
+            <div class="form-group">
+                <label>Total : </label> @ViewBag.total_booking_price$
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Check Out" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
