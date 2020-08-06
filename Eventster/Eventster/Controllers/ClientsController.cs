@@ -80,16 +80,9 @@ namespace Eventster.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!ClientExists(client.Id))
-                    {
-                        _context.Add(client);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        ViewData["ErrClient"] = "Client #" + client.Id + " exists!";
-                    }
+                    _context.Add(client);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 return View(client);
             }
@@ -203,6 +196,10 @@ namespace Eventster.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public dynamic GetLastClientId()
+        {
+            return _context.Client.OrderByDescending(client => client.Id).FirstOrDefault();
+        }
 
         // This function checks if a client is already exist in the db
         // param: id - client id
@@ -210,5 +207,7 @@ namespace Eventster.Controllers
         {
             return _context.Client.Any(e => e.Id == id);
         }
+
+
     }
 }
