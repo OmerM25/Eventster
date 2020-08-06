@@ -2,5 +2,6 @@ Eventster/Eventster/obj/*
 Eventster/.vs
 Eventster/Eventster/bin
 ../.vs/
-Eventster/Eventster/Eventster.mdf
-Eventster/Eventster/Eventster_log.mdf
+Eventster/Eventster.mdf
+Eventster/Eventster_log.mdf
+Eventster/Eventster_log.ldf
