@@ -26,13 +26,13 @@ namespace Eventster.Models
 
 
         [Display(Name = "Phone Number")]
-        [StringLength(20)]
+        [StringLength(11, MinimumLength = 10)]
         [Required]
         public string PhoneNumber { get; set; }
 
 
         [Display(Name = "Credit Card")]
-        [StringLength(20)]
+        [StringLength(20, MinimumLength = 16)]
         [Required]
         public string CreditCard { get; set; }
     }

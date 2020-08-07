@@ -1,0 +1,13 @@
+﻿@model Eventster.Models.Tweet
+@{ ViewData["Title"] = "Posts"; }
+
+<h2>@ViewData["Title"]</h2>
+
+@using (Html.BeginForm("Index", "Posts", FormMethod.Post))
+{
+    <div class="form-control">
+        <label class="label-primary">     Enter Your Tweet  </label>@Html.TextBoxFor(m => m.tweets)<br />
+        <input type="submit" value="Submit" />
+    </div>
+}
+@Html.Raw(TempData["tweet_msg"]);

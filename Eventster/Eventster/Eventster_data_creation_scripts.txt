@@ -19,9 +19,9 @@ INSERT INTO CLIENT (Id, FirstName, LastName, PhoneNumber, CreditCard) VALUES(2, 
 INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(1, 'Pitbull', 'France', 'Paris', 'Flowers St. 1', '20210618 10:34:09 AM', 3.0, 48.8566, 2.3522);
 INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(2, 'Beyonce', 'France', 'Paris', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 48.8566, 2.3522);
 INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(3, 'Sia', 'Netherlands', 'Amsterdam', 'Flowers St. 1', '20210618 10:34:09 AM', 3.0, 52.3667, 4.8945);
-INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(4, 'Rihanna', 'California', 'Los Angeles', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 34.0522, 118.2437);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(4, 'Rihanna', 'California', 'Los Angeles', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 34.0522, -118.2437);
 INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(5, 'Noa kirel', 'Israel', 'Tel Aviv', 'Flowers St. 1', '20210618 10:34:09 AM', 4.0, 32.0853, 34.7818);
-INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(6, 'Jason Derulo', 'New York', 'New York', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 40.7128, 74.0060);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(6, 'Jason Derulo', 'New York', 'New York', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 40.7128, -74.0060);
 INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(7, 'Yuval Dayan', 'Israel', 'Beer Sheva', 'Flowers St. 1', '20210618 10:34:09 AM', 4.0, 31.2530, 34.7915);
 
 

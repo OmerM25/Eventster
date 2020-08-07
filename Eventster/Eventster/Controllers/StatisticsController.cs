@@ -29,7 +29,7 @@ namespace Eventster.Controllers
                 var artistsRankData = JsonConvert.SerializeObject(artistsRank);
                 ViewBag.artistRankInConcertsData = artistsRankData;
 
-                var concerts = _context.Ticket.GroupBy(t => t.Concert).Select(c => new { name = ((Concert)c.Key).Name, ticketsAmount = c.Count() });
+                var concerts = _context.Ticket.GroupBy(t => t.Concert.Name).Select(c => new { name = (c.Key), ticketsAmount = c.Count() }).ToList();
                 var concertsData = JsonConvert.SerializeObject(concerts);
                 ViewBag.ticketsAmountInConcertsData = concertsData;
 
@@ -37,6 +37,7 @@ namespace Eventster.Controllers
             }
             else
             {
+                TempData["msg"] = "<script>alert('Please login.');</script>";
                 return RedirectToAction("Index", "Home");
             }
         }
