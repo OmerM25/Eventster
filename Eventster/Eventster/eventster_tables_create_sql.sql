@@ -1,8 +1,8 @@
+DROP TABLE [dbo].[Booking]
 DROP TABLE [dbo].[User]
 DROP TABLE [dbo].[Concert]
 DROP TABLE [dbo].[Ticket]
 DROP TABLE [dbo].[TicketType]
-DROP TABLE [dbo].[Booking]
 DROP TABLE [dbo].[Client]
 
 CREATE TABLE [dbo].[User] (
