@@ -30,15 +30,11 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index" id="TwitterPost">Twitter Post</a></li>
                             <li style="position:absolute; right:85px;"><a class="nav-link text-dark" asp-controller="Users" id="WelcomeMessage"></a></li>
                             <li style="position:absolute; right:20px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff">Log Out</a></li>
                         }
@@ -46,6 +42,13 @@
                         {
                             <li style="position:absolute; right:10px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="Login">Login</a></li>
                             <li><a class="nav-link text-dark" asp-controller="Users" asp-action="Create">Sign Up</a></li>
+                        }
+                        @if (Context.Session.GetString(UsersController.SessionName) == "admin")
+                        {
+                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index" id="TwitterPost">Twitter Post</a></li>
                         }
                     </ul>
                 </div>
