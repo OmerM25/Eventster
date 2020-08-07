@@ -33,6 +33,7 @@ namespace Eventster.Controllers
             }
             else
             {
+                TempData["msg"] = "<script>alert('Please login.');</script>";
                 return RedirectToAction("Index", "Home");
             }
         }

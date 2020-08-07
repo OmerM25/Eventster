@@ -30,7 +30,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
-                        </li> 
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
                         </li>
@@ -38,13 +38,13 @@
                         {
                             ViewBag.profileUrl = "https://graph.facebook.com/" + User.Identities.ElementAt(0).Claims.ElementAt(0).Value + "/picture??width=100&amp;height=100";
                             <li><a asp-area="" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
+                            <li style="position:absolute; right:20px;"><a class="hide nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff">Log Out</a></li>
                             <li><img alt="" class="facebook-profile" src="@ViewBag.profileUrl" /></li>
                         }
                         else
                         {
                             <li style="position:absolute; right:20px;"><a class="hide nav-link text-dark" asp-controller="Users" asp-action="Login" id="LogMessage"></a></li>
                             <li style="position:absolute; right:85px;"><a class="hide nav-link text-dark" asp-controller="Users" id="WelcomeMessage"></a></li>
-                            <li style="position:absolute; right:20px;"><a class="hide nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff"></a></li>
                             <li><a class="hide nav-link text-dark" asp-controller="Auth" asp-action="FacebookLogin" id="FacebookLogin"></a></li>
                         }
                     </ul>
@@ -67,6 +67,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    @Html.Raw(TempData["msg"]);
 </body>
 </html>
 
