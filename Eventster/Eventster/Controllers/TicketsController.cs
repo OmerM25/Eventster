@@ -107,7 +107,7 @@ namespace Eventster.Controllers
                 return NotFound();
             }
             ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Id", ticket.ConcertId);
-            ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Name", ticket.TicketTypeId);
+            ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type", ticket.TicketTypeId);
             return View(ticket);
         }
 

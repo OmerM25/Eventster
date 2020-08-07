@@ -96,10 +96,9 @@
     <td>
         @if (Context.Session.GetString(UsersController.SessionName) != null)
         {
-@Html.ActionLink("Edit", "Edit/" + item.Id + "/" + item.ConcertId) <span>|</span>
-                    @Html.ActionLink("Delete", "Delete/" + item.Id + "/" + item.ConcertId) <span>|</span>}
-
-        @Html.ActionLink("Details", "Details/" + item.Id + "/" + item.ConcertId)
+            @Html.ActionLink("Edit", "Edit", "Tickets", new { id=item.Id, concertId=item.ConcertId}) <span>|</span>
+            @Html.ActionLink("Delete", "Delete", "Tickets", new { id = item.Id, concertId = item.ConcertId }) <span>|</span>}
+            @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id, concertId = item.ConcertId })
     </td>
 </tr>}
     </tbody>
