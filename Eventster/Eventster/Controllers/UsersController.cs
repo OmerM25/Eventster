@@ -61,26 +61,26 @@ namespace Eventster.Controllers
             return View();
         }
 
+        // GET: Users/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         // POST: Users/Insert | Insert a new user by a given user object
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserName,Password")] User user)
         {
-            // Check if user already logged in
-            if (checkSession().isLogin)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(user);
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return View("Login");
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+
+            ViewData["ErrMessage"] = "Invalid username or password.";
+            return View("Create");
         }
 
         // GET: Users/Update/2 | Get update view for user by id
