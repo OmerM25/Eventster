@@ -179,7 +179,7 @@ namespace Eventster.Controllers
         // Check if a user exists in db
         private bool UserExists(User user)
         {
-            return _context.User.Any(user => (user.UserName == user.UserName) && (user.Password == user.Password));
+            return _context.User.Any(u => (u.UserName == user.UserName) && (u.Password == user.Password));
         }
 
         // Logins the user into the system, return the homepage view if success and throws an error if not
@@ -198,10 +198,13 @@ namespace Eventster.Controllers
                     HttpContext.Session.SetString(SessionName, user.UserName);
                     return RedirectToAction("Index", "Home");
                 }
+
+                ViewData["ErrMessage"] = "Incorrect username or password.";
+                return View("Login");
             }
             if (user.UserName != null && user.Password != null)
             {
-                ViewData["ErrMessage"] = "Incorrect username or password";
+                ViewData["ErrMessage"] = "Incorrect username or password.";
             }
 
             return View("Login");

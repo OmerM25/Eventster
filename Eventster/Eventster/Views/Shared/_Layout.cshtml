@@ -1,4 +1,6 @@
-﻿<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+﻿@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Eventster</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/style.css" runat="server"/>
+    <link rel="stylesheet" href="~/css/style.css" runat="server" />
 
 </head>
 <body onload="checkSession()">
@@ -22,33 +24,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Tickets</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (Context.Session.GetString(UsersController.SessionName) != null)
                         {
-                            ViewBag.profileUrl = "https://graph.facebook.com/" + User.Identities.ElementAt(0).Claims.ElementAt(0).Value + "/picture??width=100&amp;height=100";
-                            <li><a asp-area="" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
-                            <li style="position:absolute; right:20px;"><a class="hide nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff">Log Out</a></li>
-                            <li><img alt="" class="facebook-profile" src="@ViewBag.profileUrl" /></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index" id="TwitterPost">Twitter Post</a></li>
+                            <li style="position:absolute; right:85px;"><a class="nav-link text-dark" asp-controller="Users" id="WelcomeMessage"></a></li>
+                            <li style="position:absolute; right:20px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff">Log Out</a></li>
                         }
                         else
                         {
-                            <li style="position:absolute; right:20px;"><a class="hide nav-link text-dark" asp-controller="Users" asp-action="Login" id="LogMessage"></a></li>
-                            <li style="position:absolute; right:85px;"><a class="hide nav-link text-dark" asp-controller="Users" id="WelcomeMessage"></a></li>
-                            <li><a class="hide nav-link text-dark" asp-controller="Auth" asp-action="FacebookLogin" id="FacebookLogin"></a></li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index">Twitter Post</a>
-                            </li>
+                            <li style="position:absolute; right:10px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="Login">Login</a></li>
+                            <li><a class="nav-link text-dark" asp-controller="Users" asp-action="Create">Sign Up</a></li>
                         }
                     </ul>
                 </div>
@@ -83,19 +80,14 @@
             success: function (data) {
                 // Checks if there is user that already logged on
                 if (data.isLogin) {
-                    // Inject messages in JQuery.
-                    $("#WelcomeMessage").removeClass("hide").text("Welcome " + data.userName);
-                    $("#Logoff").removeClass("hide").text("Log Off");
+                     // Inject messages in JQuery.
+                      $("#WelcomeMessage").text("Welcome " + data.userName);
+                 }
 
-                }
-                else {
-                    $("#LogMessage").removeClass("hide").text("Manager Login");
-                    $("#FacebookLogin").removeClass("hide").text("Login");
-                }
             },
             error: function (e) {
                 console.log(e);
             }
         });
-}
+    }
 </script>
