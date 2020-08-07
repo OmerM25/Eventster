@@ -1,5 +1,6 @@
 ﻿@model Eventster.Models.User
 
+<br/>
 @{ ViewData["Title"] = "Login"; }
 
 <h2>@ViewData["Title"]</h2>
@@ -21,7 +22,7 @@
                 <input asp-for="Password" class="form-control" required />
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-default" />
+                <input type="submit" value="Login" class="btn btn-outline-primary btn-sm" />
             </div>
         </form>
     </div>

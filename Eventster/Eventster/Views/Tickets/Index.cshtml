@@ -13,13 +13,19 @@
 </p>}
 
 <form asp-action="Index">
-    Search: <input type="text" name="SearchString">
-    <input type="submit" value="Filter" />
-    <a asp-controller="Tickets" asp-action="Index">Clear</a>
+    <br/>
+    <div class="input-group input-group-sm mb-3">
+        Search: &nbsp;<input type="text" name="SearchString" class="form-control">&nbsp;
+        <input type="submit" value="Filter" class="btn btn-outline-primary btn-sm" />&nbsp;
+        <a asp-controller="Tickets" asp-action="Index">
+            <input type="button"  class="btn btn-outline-primary btn-sm" value="Clear" />
+        </a>
+        
+        <br />
+    </div>
 </form>
 
 <form class="multi-search" asp-action="MultiSearch">
-    --- Multi search ---
     <div class="form-group">
         <label class="control-label">Concert State:</label>
         <select id="concert-countries" name="concertCountry" class="form-control"></select>
@@ -33,8 +39,11 @@
         <input type="number" value="500" min="1" max="999" id="price" name="price">
     </div>
     <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-default" />
-        <a asp-controller="Tickets" asp-action="Index">Clear</a>
+        <input type="submit" value="Search" class="btn btn-outline-primary" />
+        <a asp-controller="Tickets" asp-action="Index">
+            <input type="button" value="Clear" class=" btn btn-outline-primary"  />
+        </a>
+        
     </div>
 </form>
 

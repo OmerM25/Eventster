@@ -1,11 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Eventster</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" runat="server"/>
+
 </head>
 <body onload="checkSession()">
     <header>
@@ -27,7 +29,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
