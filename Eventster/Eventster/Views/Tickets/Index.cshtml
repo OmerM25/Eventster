@@ -5,7 +5,7 @@
 @{ ViewData["Title"] = "Tickets"; }
 
 <h2>@ViewData["Title"]</h2>
-'
+
 @if (Context.Session.GetString(UsersController.SessionName) == "admin")
 {
 <p>
