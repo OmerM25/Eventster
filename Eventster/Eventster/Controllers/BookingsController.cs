@@ -43,10 +43,7 @@ namespace Eventster.Controllers
 
                 IQueryable<Booking> bookings = _context.Set<Booking>();
 
-                bookings = bookings.Include(b => b.Client).
-                    Include(b => b.Concert).
-                    Include(b => b.Ticket).
-                    Include(b => b.Ticket.TicketType);
+                bookings = bookings.Include(b => b.Client).Include(b => b.Concert).Include(b => b.Ticket).Include(b => b.Ticket.TicketType);
 
                 if (!String.IsNullOrEmpty(searchString))
                 {
