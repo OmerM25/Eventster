@@ -92,18 +92,6 @@ namespace Eventster
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                   name: "TicketsEdit",
-                   template: "{controller=Tickets/Edit}/{action=Edit}/{id?}/{concertId?}");
-
-                routes.MapRoute(
-                   name: "TicketsDelete",
-                   template: "{controller=Tickets/Delete}/{action=Delete}/{id?}/{concertId?}");
-
-                routes.MapRoute(
-                   name: "TicketDetails",
-                   template: "{controller=Tickets/Details}/{action=Details}/{id?}/{concertId?}");
             });
         }
     }

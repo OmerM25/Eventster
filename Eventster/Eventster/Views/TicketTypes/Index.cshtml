@@ -6,7 +6,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@if (Context.Session.GetString(UsersController.SessionName) != null)
+@if (Context.Session.GetString(UsersController.SessionName) == "admin")
 {
 <p>
     <a asp-action="Create">Create New</a>
@@ -53,10 +53,11 @@
         @Html.DisplayFor(modelItem => item.Price)
     </td>
     <td>
-        @if (Context.Session.GetString(UsersController.SessionName) != null)
+        @if (Context.Session.GetString(UsersController.SessionName) == "admin")
         {
-<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> <span>|</span>}
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> <span>|</span>
+        }
         <a asp-action="Details" asp-route-id="@item.Id">Details</a>
     </td>
 </tr>}

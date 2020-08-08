@@ -52,7 +52,7 @@ namespace Eventster.Controllers
 
                 twts.tweets = "";
                 TempData["tweet_msg"] = "<script>alert('Successful tweet.');</script>";
-                return View();
+                return RedirectToAction("Index", "Posts");
             }
             else
             {
