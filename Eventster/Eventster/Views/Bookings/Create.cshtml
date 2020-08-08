@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Concert" class="control-label"></label>
-                <select id="concert-id" class="form-control" asp-for="ConcertId" asp-items="ViewBag.ConcertId" onchange="concertParm.concertId=this.value;GenerateFreeTicket();GetRecommendedTicketTypeByConcertId()"></select>
+                <select id="concert-id" class="form-control" asp-for="ConcertId" asp-items="ViewBag.ConcertId"></select>
                 <div id="concert-id-alert" hidden class="alert-color">No concerts in the system</div>
             </div>
             <div class="prediction-sector">
@@ -52,7 +52,19 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-<script>function DisableCreate() {
+<script>
+    $(document).ready(function () {
+        const concertParm = {};
+
+        $("#concert-id").change(function () {
+            concertParm.concertId = $(this).children("option:selected").val();
+            console.log($(this))
+            console.log(concertParm);
+            GenerateFreeTicket();
+            GetRecommendedTicketTypeByConcertId();
+        })
+    })
+    function DisableCreate() {
         $("#create-btn")[0].disabled = true;
     }
 
@@ -65,8 +77,6 @@
     function CheckForEmptySelectLists() {
         // In case not clients in the DB.
         if (GetSelectAmount("client-id") == 0) {
-            console.log("emptyyyy")
-            console.log(GetSelectAmount("client-id"))
             isEmptySelectList = true;
             DisableCreate();
             $("#client-id").attr("hidden", true);
@@ -197,7 +207,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/Bookings/GetRecommendedTicketTypeByConcertId?id=" + concertId,
+            url: "/Bookings/GetRecommendedTicketTypeByConcertId?concertId=" + concertId,
             success: function (ticketTypeName) {
                 if (ticketTypeName) {
                     $("#ml-suggest").html("<label style='color:black;text-align:left;'>Recomended:</label>" + ticketTypeName);
