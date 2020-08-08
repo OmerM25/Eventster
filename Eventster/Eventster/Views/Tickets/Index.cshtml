@@ -6,10 +6,11 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@if (Context.Session.GetString(UsersController.SessionName) != null)
+@if (Context.Session.GetString(UsersController.SessionName) == "admin")
 {
 <p>
-    <a asp-action="Create">Create New</a>
+   @Html.ActionLink("Create New", "Create", "Tickets") <span></span>
+  
 </p>}
 
 <form asp-action="Index">
@@ -94,11 +95,12 @@
         @Html.DisplayFor(modelItem => item.TicketsLeft)
     </td>
     <td>
-        @if (Context.Session.GetString(UsersController.SessionName) != null)
+        @if (Context.Session.GetString(UsersController.SessionName) == "admin")
         {
             @Html.ActionLink("Edit", "Edit", "Tickets", new { id=item.Id, concertId=item.ConcertId}) <span>|</span>
-            @Html.ActionLink("Delete", "Delete", "Tickets", new { id = item.Id, concertId = item.ConcertId }) <span>|</span>}
-            @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id, concertId = item.ConcertId })
+            @Html.ActionLink("Delete", "Delete", "Tickets", new { id = item.Id, concertId = item.ConcertId }) <span>|</span>
+        }
+        @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id, concertId = item.ConcertId })
     </td>
 </tr>}
     </tbody>
