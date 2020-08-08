@@ -2097,6 +2097,22 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "TweetSharp/2.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "5.0.6"
+        },
+        "compile": {
+          "lib/4.0/Hammock.ClientProfile.dll": {},
+          "lib/4.0/Newtonsoft.Json.dll": {},
+          "lib/4.0/TweetSharp.dll": {}
+        },
+        "runtime": {
+          "lib/4.0/Hammock.ClientProfile.dll": {},
+          "lib/4.0/Newtonsoft.Json.dll": {},
+          "lib/4.0/TweetSharp.dll": {}
+        }
       }
     }
   },
@@ -7101,6 +7117,72 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "TweetSharp/2.3.1": {
+      "sha512": "0iN3kZ+idHMZ2L9F1Hxnt4kCO4s53hfLu+erANQhP3chwsRrEgGjCpjo9OOM27sHCKNHd9e9iSrymQ9EtXlUOQ==",
+      "type": "package",
+      "path": "tweetsharp/2.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/2.0/Hammock.dll",
+        "lib/2.0/Hammock.pdb",
+        "lib/2.0/Newtonsoft.Json.dll",
+        "lib/2.0/Newtonsoft.Json.xml",
+        "lib/2.0/TweetSharp.dll",
+        "lib/2.0/TweetSharp.pdb",
+        "lib/3.5/Hammock.ClientProfile.dll",
+        "lib/3.5/Hammock.ClientProfile.pdb",
+        "lib/3.5/Newtonsoft.Json.dll",
+        "lib/3.5/Newtonsoft.Json.xml",
+        "lib/3.5/TweetSharp.dll",
+        "lib/3.5/TweetSharp.pdb",
+        "lib/4.0/Hammock.ClientProfile.dll",
+        "lib/4.0/Hammock.ClientProfile.pdb",
+        "lib/4.0/Newtonsoft.Json.dll",
+        "lib/4.0/Newtonsoft.Json.xml",
+        "lib/4.0/TweetSharp.dll",
+        "lib/4.0/TweetSharp.pdb",
+        "lib/sl4-wp/Hammock.WindowsPhone.dll",
+        "lib/sl4-wp/Hammock.WindowsPhone.pdb",
+        "lib/sl4-wp/ICSharpCode.SharpZipLib.WindowsPhone.dll",
+        "lib/sl4-wp/ICSharpCode.SharpZipLib.WindowsPhone.pdb",
+        "lib/sl4-wp/Newtonsoft.Json.dll",
+        "lib/sl4-wp/Newtonsoft.Json.xml",
+        "lib/sl4-wp/TweetSharp.WindowsPhone.dll",
+        "lib/sl4-wp/TweetSharp.WindowsPhone.pdb",
+        "lib/sl4-wp71/Hammock.WindowsPhone.Mango.dll",
+        "lib/sl4-wp71/Hammock.WindowsPhone.Mango.pdb",
+        "lib/sl4-wp71/ICSharpCode.SharpZipLib.WindowsPhone.dll",
+        "lib/sl4-wp71/ICSharpCode.SharpZipLib.WindowsPhone.pdb",
+        "lib/sl4-wp71/Newtonsoft.Json.dll",
+        "lib/sl4-wp71/Newtonsoft.Json.xml",
+        "lib/sl4-wp71/TweetSharp.WindowsPhone.Mango.dll",
+        "lib/sl4-wp71/TweetSharp.WindowsPhone.Mango.pdb",
+        "lib/sl4/Hammock.Silverlight.dll",
+        "lib/sl4/Hammock.Silverlight.pdb",
+        "lib/sl4/ICSharpCode.SharpZipLib.Silverlight.dll",
+        "lib/sl4/ICSharpCode.SharpZipLib.Silverlight.pdb",
+        "lib/sl4/Newtonsoft.Json.dll",
+        "lib/sl4/Newtonsoft.Json.xml",
+        "lib/sl4/System.Xml.Linq.dll",
+        "lib/sl4/System.Xml.Linq.xml",
+        "lib/sl4/TweetSharp.Silverlight.dll",
+        "lib/sl4/TweetSharp.Silverlight.pdb",
+        "lib/sl4/de/System.Xml.Linq.resources.dll",
+        "lib/sl4/es/System.Xml.Linq.resources.dll",
+        "lib/sl4/fr/System.Xml.Linq.resources.dll",
+        "lib/sl4/it/System.Xml.Linq.resources.dll",
+        "lib/sl4/ja/System.Xml.Linq.resources.dll",
+        "lib/sl4/ko/System.Xml.Linq.resources.dll",
+        "lib/sl4/ru/System.Xml.Linq.resources.dll",
+        "lib/sl4/zh-Hans/System.Xml.Linq.resources.dll",
+        "lib/sl4/zh-Hant/System.Xml.Linq.resources.dll",
+        "tweetsharp.2.3.1.nupkg.sha512",
+        "tweetsharp.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -7108,7 +7190,8 @@
       "Microsoft.AspNetCore.Authentication.Facebook >= 3.1.4",
       "Microsoft.EntityFrameworkCore >= 3.1.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.5",
-      "Microsoft.ML >= 0.6.0"
+      "Microsoft.ML >= 0.6.0",
+      "TweetSharp >= 2.3.1"
     ]
   },
   "packageFolders": {
@@ -7163,6 +7246,10 @@
           "Microsoft.ML": {
             "target": "Package",
             "version": "[0.6.0, )"
+          },
+          "TweetSharp": {
+            "target": "Package",
+            "version": "[2.3.1, )"
           }
         },
         "imports": [
@@ -7192,5 +7279,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'TweetSharp 2.3.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "TweetSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

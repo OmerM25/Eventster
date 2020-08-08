@@ -53,6 +53,10 @@
             "Microsoft.ML": {
               "target": "Package",
               "version": "[0.6.0, )"
+            },
+            "TweetSharp": {
+              "target": "Package",
+              "version": "[2.3.1, )"
             }
           },
           "imports": [

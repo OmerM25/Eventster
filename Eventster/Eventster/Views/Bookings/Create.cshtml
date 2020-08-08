@@ -7,10 +7,6 @@
     @TempData["ErrMessageBooking"]
 </div>
 <br />
-<sector class="signature-sector">
-    <div>Client signature:</div>
-    <canvas id="signCanvas" width="350" height="200" class="sign-canvas"></canvas>
-</sector>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -18,22 +14,27 @@
             <div class="form-group">
                 <label asp-for="ClientId" class="control-label"></label>
                 <select asp-for="ClientId" id="client-id" class="form-control" asp-items="ViewBag.ClientId"></select>
-                <div id="client-id-alert" class="alert-color hide">No clients in the system</div>
+                <div id="client-id-alert" hidden class="alert-color">No clients in the system</div>
             </div>
             <div class="form-group">
                 <label asp-for="Concert" class="control-label"></label>
                 <select id="concert-id" class="form-control" asp-for="ConcertId" asp-items="ViewBag.ConcertId" onchange="concertParm.concertId=this.value;GenerateFreeTicket();GetRecommendedTicketTypeByConcertId()"></select>
-                <div id="concert-id-alert" class="alert-color hide">No concerts in the system</div>
+                <div id="concert-id-alert" hidden class="alert-color">No concerts in the system</div>
             </div>
             <div class="prediction-sector">
                 <div class="form-group" style="width:100%;">
                     <label>Ticket Type: </label>
                     <select id="ticket-type" asp-items="ViewBag.TicketTypeId" class="form-control" onchange="bookingParm.ticketTypeId=this.value; GenerateFreeTicket()"></select>
-                    <div id="ticket-type-alert" class="alert-color hide">No ticket-types in the system</div>
+                    <div id="ticket-type-alert" hidden class="alert-color">No ticket-types in the system</div>
                 </div>
                 <span id="ml-suggest" class="ml-suggest"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width:100%;">
+                <label>Tickets Amount: </label>
+                <input asp-for="TicketsAmount" class="form-control" />
+                <span asp-validation-for="TicketsAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
                 <label asp-for="TicketId" class="control-label"></label>
                 <select id="ticket-id" asp-for="TicketId" class="form-control"></select>
                 <div style="color:red;" id="no-free-tickets" class="hide"></div>
@@ -44,6 +45,10 @@
         </form>
     </div>
 </div>
+<sector class="signature-sector">
+    <div>Client signature:</div>
+    <canvas id="signCanvas" width="350" height="200" class="sign-canvas"></canvas>
+</sector>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
@@ -60,10 +65,12 @@
     function CheckForEmptySelectLists() {
         // In case not clients in the DB.
         if (GetSelectAmount("client-id") == 0) {
+            console.log("emptyyyy")
+            console.log(GetSelectAmount("client-id"))
             isEmptySelectList = true;
             DisableCreate();
-            $("#client-id").addClass("hide");
-            $("#client-id-alert").removeClass("hide");
+            $("#client-id").attr("hidden", true);
+            $("#client-id-alert").attr("hidden", false);
 
         }
 
@@ -71,16 +78,16 @@
         if (GetSelectAmount("concert-id") == 0) {
             isEmptySelectList = true;
             DisableCreate();
-            $("#concert-id").addClass("hide");
-            $("#concert-id-alert").removeClass("hide");
+            $("#concert-id").attr("hidden", true);
+            $("#concert-id-alert").attr("hidden", false);
         }
 
         // In case not ticket-types in the DB.
         if (GetSelectAmount("ticket-type") == 0) {
             isEmptySelectList = true;
             DisableCreate();
-            $("#ticket-type").addClass("hide");
-            $("#ticket-type").removeClass("hide");
+            $("#ticket-type").attr("hidden", true);
+            $("#ticket-type").attr("hidden", false);
         }
     }
 

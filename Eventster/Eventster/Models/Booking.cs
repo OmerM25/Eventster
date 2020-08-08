@@ -9,7 +9,6 @@ namespace Eventster.Models
     public class Booking
     {
         [Display(Name = "Booking Id")]
-        [Range(1, 5000)]
         [Required]
         public int Id { get; set; }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zRoPCjV99GURNt4TcEclF/2W/vHggl0t3Trq9xRz/HwKrDOoGXzJkmWcBvVd1lGxGhe3Asmno4C6MIL9wizqAA==",
+  "dgSpecHash": "UrqNs7EdDOdY5VO4z2UVCZw/YykNyzT9xMZBWA7rrCwrUXAlvDZDJSuIN6j9P2QskD7xAFhV1VrC6ixI6m4/FQ==",
   "success": true,
   "projectFilePath": "D:\\מדעי המחשב\\פיתוח אפליקציות אינטרנטיות\\Eventster\\Eventster\\Eventster\\Eventster.csproj",
   "expectedPackageFiles": [
@@ -133,7 +133,19 @@
     "C:\\Users\\ImOme\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ImOme\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ImOme\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\ImOme\\.nuget\\packages\\tweetsharp\\2.3.1\\tweetsharp.2.3.1.nupkg.sha512",
     "C:\\Users\\ImOme\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'TweetSharp 2.3.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "TweetSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
