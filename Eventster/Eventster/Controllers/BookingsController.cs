@@ -100,7 +100,7 @@ namespace Eventster.Controllers
         {
             TempData["ErrMessageBooking"] = "";
             ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Name");
-            ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Name");
+            ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type");
             ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Id");
             ViewData["TicketId"] = new SelectList(_context.Ticket, "Id", "Id");
 
