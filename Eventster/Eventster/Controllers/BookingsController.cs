@@ -36,7 +36,7 @@ namespace Eventster.Controllers
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
             {
-                if (CountOfTicketTypesOnBooking() > 1)
+                if (_context.Booking.Count() > 1)
                 {
                     TrainBookingsData();
                 }
