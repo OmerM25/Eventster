@@ -9,7 +9,8 @@
 @if (Context.Session.GetString(UsersController.SessionName) == "admin")
 {
 <p>
-    <a asp-action="Create">Create New</a>
+   @Html.ActionLink("Create New", "Create", "Tickets") <span></span>
+  
 </p>}
 
 <form asp-action="Index">
