@@ -383,7 +383,14 @@ namespace Eventster.Controllers
         }
         private int GetLastBookingId()
         {
-            return _context.Booking.Select(booking => booking.Id).Max();
+            try
+            {
+                return _context.Booking.Select(booking => booking.Id).Max();
+
+            } catch (Exception e)
+            {
+                return 0;
+            }
         }
     }
 
