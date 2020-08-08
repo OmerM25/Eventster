@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Eventster.Models.Booking>
+@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
 
 @{ ViewData["Title"] = "Bookings"; }
 
@@ -41,30 +43,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketsAmount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Concert.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Concert.Country)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ticket.Id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ticket.TicketType.Type)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Client.Id)
-    </td>
-    <td>
-        <a asp-controller="Bookings" asp-action="Delete" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Delete</a> |
-        <a asp-controller="Bookings" asp-action="Details" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Details</a>
-        <a asp-controller="Bookings" asp-action="Edit" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Edit</a>                
-    </td>
-</tr>}
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketsAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Concert.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Concert.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.TicketType.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Id)
+                </td>
+                <td>
+                    @if (Context.Session.GetString(UsersController.SessionName) == "admin")
+                    {
+                        <a asp-controller="Bookings" asp-action="Delete" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Delete</a>
+                        <a asp-controller="Bookings" asp-action="Details" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Details</a>
+                        <a asp-controller="Bookings" asp-action="Edit" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Edit</a>
+                    }
+                </td>
+            </tr>
+}
     </tbody>
 </table>
