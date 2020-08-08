@@ -65,6 +65,7 @@ namespace Eventster.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
+
             ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Name");
             ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type");
             return View(new Ticket());
@@ -79,10 +80,12 @@ namespace Eventster.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    ticket.Id = this.GetLastTicketIdInConcert(ticket.ConcertId) + 1;
                     _context.Add(ticket);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
+
                 ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Id", ticket.ConcertId);
                 ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Id", ticket.TicketTypeId);
                 return View(ticket);

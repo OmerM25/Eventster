@@ -114,6 +114,9 @@ namespace Eventster.Controllers
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
             {
+                // Set the booking's last sequence ID
+                booking.Id = this.GetLastBookingId() + 1;
+
                 if (!ModelState.IsValid)
                 {
                     return BadRequest("Booking parameters are not valid");
@@ -283,7 +286,7 @@ namespace Eventster.Controllers
 
         public List<IGrouping<int, Booking>> GetTicketTypeOnBookings()
         {
-            return _context.Booking.Include(b => b.Ticket).GroupBy(b => b.Ticket.TicketTypeId).ToList();
+            return _context.Booking.Include(b => b.Ticket).AsEnumerable().GroupBy(b => b.Ticket.TicketTypeId).ToList();
         }
 
         // Getting concert id and calculate by ML recommendation for favorite ticket type.
@@ -378,7 +381,10 @@ namespace Eventster.Controllers
                 outputFile.Close();
             }
         }
-
+        private int GetLastBookingId()
+        {
+            return _context.Booking.Select(booking => booking.Id).Max();
+        }
     }
 
     // This class is the train data vector structure.

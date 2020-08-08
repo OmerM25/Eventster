@@ -59,13 +59,13 @@ namespace Eventster.Controllers
             return View(concert);
         }
 
-        // GET: Concerts/Insert | Return the insert page view
-        public IActionResult Insert()
+        // GET: Concerts/Create | Return the insert page view
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Concerts/Insert | Insert new concert to db
+        // POST: Concerts/Create | Insert new concert to db
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Address,DateTime,ArtistRank,XCord,YCord")] Concert concert)

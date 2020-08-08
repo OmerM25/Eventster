@@ -13,7 +13,7 @@ namespace Eventster.Models
         public int Id { get; set; }
 
         [Display(Name = "Ticket Type")]
-        [StringLength(50)]
+        [MaxLength(50)]
         [Required]
         public string Type { get; set; }
 

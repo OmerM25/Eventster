@@ -14,22 +14,22 @@ namespace Eventster.Models
         public int Id { get; set; }
 
         [Display(Name = "Artist Name")]
-        [StringLength(50)]
+        [MaxLength(50)]
         [Required]
         public string Name { get; set; }
 
         [Display(Name = "Concert Country")]
-        [StringLength(20)]
+        [MaxLength(20)]
         [Required]
         public string Country { get; set; }
 
         [Display(Name = "Concert City")]
-        [StringLength(30)]
+        [MaxLength(30)]
         [Required]
         public string City { get; set; }
 
         [Display(Name = "Concert Address")]
-        [StringLength(50)]
+        [MaxLength(50)]
         [Required]
         public string Address { get; set; }
 
