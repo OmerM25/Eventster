@@ -9,7 +9,7 @@
 @if (Context.Session.GetString(UsersController.SessionName) != null)
 {
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Concerts" asp-action="Create">Create New</a>
 </p>}
 
 <form >
@@ -35,7 +35,7 @@
         <select id="concert-cities" name="city" class="form-control"></select>
     </div>
     <div class="form-group">
-        <label class="control-label">Concert artistRank: </label>
+        <label class="control-label">Concert minimum artistRank: </label>
         <input type="number" value="3" min="1" max="5" id="artistRank" name="artistRank">
     </div>
     <div class="form-group">
