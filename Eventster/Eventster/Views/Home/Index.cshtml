@@ -3,6 +3,169 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="link-text">Eventster</h1><canvas id="clock" width="500"></canvas>
 </div>
+<section>
+    <aside class="main-titles-container">
+        <div>Best concerts</div>
+        <div>Concerts in attractive cities</div>
+        <div>Cheapest prices</div>
+    </aside>
+</section>
+<section>
+    <div class="cover-container">
+        <img id="cover" src="~/images/3380.jpg" alt="ASP.NET" />
+    </div>
+    <br />
+
+    <div class="text-left">
+        <h4 class="concerts-headline">Concerts Around the World:</h4>
+    </div>
+    <div id="bingMap" style="width: 100%; height: 350px;"></div>
+    <h4 id="weather"></h4>
+
+    <script type="text/javascript"
+            src="https://www.bing.com/api/maps/mapcontrol?callback=bingMapCallback&key=8jdU9kPTCEzVmyT3jRkU~rm3ZVd7SbAdEPp8lygIm8A~AuLnSHivAFETHCaowja_dJ75w4ff92UyxgW5RNfOMUaAVfTUeYeCj5oKEzjm4ItE&setLang=en"
+            async defer></script>
+    <script type="text/javascript">
+        // Function that converts temperature from fahrenheit value to celsius value
+        var FahrenheitToCelsius = function (FahrenheitTemp) {
+            return (FahrenheitTemp - 32) * 5 / 9;
+        }
+
+        // Function that is called as a result of a weather response from Yahoo web service
+        var weatherCallback = function (data) {
+            // Check if there are weather results
+            if (data.query.results != null) {
+                var location = data.query.results.channel.location;
+                var locationText = location.city + ", " + location.country;
+                var condition = data.query.results.channel.item.condition;
+                var celsiusTemperature = parseInt(FahrenheitToCelsius(parseFloat(condition.temp)));
+                var conditionText = condition.text + ": " + celsiusTemperature + " &deg;";
+                var weatherText = "The weather in " + locationText + " is " + conditionText;
+
+                document.getElementById('weather').innerHTML = '<span>' + weatherText + '</span>';
+            }
+            else {
+                document.getElementById('weather').innerHTML = '<span>No weather information for this city name</span>';
+            }
+        };
+
+        function bingMapCallback() {
+            var map = new Microsoft.Maps.Map(document.getElementById("bingMap"), {
+                credentials: '8jdU9kPTCEzVmyT3jRkU~rm3ZVd7SbAdEPp8lygIm8A~AuLnSHivAFETHCaowja_dJ75w4ff92UyxgW5RNfOMUaAVfTUeYeCj5oKEzjm4ItE',
+                center: new Microsoft.Maps.Location(0, 0),
+                zoom: 1.6,
+            });
+
+            // Add an infobox to the map so that we can display it when a pushpin is clicked.
+            infobox = new Microsoft.Maps.Infobox(map.getCenter(), { visible: false });
+            infobox.setMap(map);
+
+            // Load concerts (x,y) in order to point them on the map.
+            $.ajax({
+                type: "GET",
+                url: "/Concerts/GetConcertCoords",
+                success: function (res) {
+                    res && res.forEach(data => {
+                        // Create the point pushpin of the current concert
+                        console.log(data)
+                        var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(data.xCord, data.yCord), { title: data.Name });
+
+                        // Define the click event of the point
+                        Microsoft.Maps.Events.addHandler(pushpin, 'click', function (e) {
+                            console.log(e.target.geometry)
+                            // Get the concert's city name from the server by the clicked coordinates
+                            $.ajax({
+                                type: "GET",
+                                url: "/Concerts/GetConcertCityByXY?lat=" + e.target.geometry.y + "&lon=" + e.target.geometry.x,
+                                success: function (res1) {
+                                    console.log(e.target.geometry)
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "https://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + e.target.geometry.y + "&lon=" + e.target.geometry.x + "&appid=a963d1987529a37f321c0d07be5d6d45",
+                                        success: function (res2) {
+                                            weatherText = res2.main.temp;
+                                            document.getElementById('weather').innerHTML = '<span>' + weatherText + '</span>';
+                                            let fullDescriptionText = res1 + " <div> The local temprature is " + weatherText + " °C  </div>";
+                                            infobox.setOptions({
+                                                location: e.primitive.getLocation(),
+                                                description: fullDescriptionText,
+                                                visible: true
+                                            });
+                                        }
+                                    })
+                                },
+                                error: function (err) {
+                                    // Display the infobox with an error message
+                                    infobox.setOptions({
+                                        location: e.primitive.getLocation(),
+                                        description: 'Cant find weather for this location.',
+                                        visible: true
+                                    });
+                                }
+                            });
+                        });
+
+                        // Add the pushpin point to the map
+                        map.entities.push(pushpin);
+                    });
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+
+    </script>
+
+    <br />
+    <div class="text-left">
+        <aside>
+            <h4 class="display-4">Preview Video:</h4>
+        </aside>
+
+    </div>
+    <video width="100%" height="400" controls>
+        <source src="~/ConcertsVideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
+
+<script>
+    var context;
+    var d;
+    var str;
+    function getClock() {
+
+        d = new Date();
+        str = Calculate(d.getHours(), d.getMinutes(), d.getSeconds());
+
+        context = clock.getContext("2d");
+        context.clearRect(0, 20, 300, 50);
+        context.font = "18pt calibri";
+        context.fillStyle = "black";
+        context.fillText(str, 200, 50);
+    }
+
+    function Calculate(hour, min, sec) {
+        var curTime;
+        if (hour < 10)
+            curTime = "0" + hour.toString();
+        else
+            curTime = hour.toString();
+
+        if (min < 10)
+            curTime += ":0" + min.toString();
+        else
+            curTime += ":" + min.toString();
+
+        if (sec < 10)
+            curTime += ":0" + sec.toString();
+        else
+            curTime += ":" + sec.toString();
+        return curTime;
+    }
+
+    setInterval(getClock, 1000);
+</script>

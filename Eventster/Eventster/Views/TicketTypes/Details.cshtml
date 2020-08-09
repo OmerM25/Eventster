@@ -1,0 +1,38 @@
+﻿@model Eventster.Models.TicketType
+@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
+
+@{ ViewData["Title"] = "Ticket Type Details"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Ticket Type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Context.Session.GetString(UsersController.SessionName) != null)
+    {
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span>|</span>}
+    <a asp-action="Index">Back to List</a>
+</div>

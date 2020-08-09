@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Eventster.Models.Ticket>
+@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
+
+@{ ViewData["Title"] = "Tickets"; }
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Context.Session.GetString(UsersController.SessionName) == "admin")
+{
+<p>
+   @Html.ActionLink("Create New", "Create", "Tickets") <span></span>
+  
+</p>}
+
+<form asp-action="Index">
+    <br/>
+    <div class="input-group input-group-sm mb-3">
+        Search: &nbsp;<input type="text" name="SearchString" class="form-control">&nbsp;
+        <input type="submit" value="Filter" class="btn btn-outline-primary btn-sm" />&nbsp;
+        <a asp-controller="Tickets" asp-action="Index">
+            <input type="button"  class="btn btn-outline-primary btn-sm" value="Clear" />
+        </a>
+        
+        <br />
+    </div>
+</form>
+
+<form class="multi-search" asp-action="MultiSearch">
+    <div class="form-group">
+        <label class="control-label">Concert State:</label>
+        <select id="concert-countries" name="concertCountry" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Ticket Type:</label>
+        <select id="ticket-types" name="ticketTypeName" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Maximum Concert Price:</label>
+        <input type="number" value="500" min="1" max="999" id="price" name="price">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-outline-primary" />
+        <a asp-controller="Tickets" asp-action="Index">
+            <input type="button" value="Clear" class=" btn btn-outline-primary"  />
+        </a>
+        
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concert.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concert.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketType.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketType.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketsLeft)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Concert.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Concert.Country)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketType.Type)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketType.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketsLeft)
+    </td>
+    <td>
+        @if (Context.Session.GetString(UsersController.SessionName) == "admin")
+        {
+            @Html.ActionLink("Edit", "Edit", "Tickets", new { id=item.Id, concertId=item.ConcertId}) <span>|</span>
+            @Html.ActionLink("Delete", "Delete", "Tickets", new { id = item.Id, concertId = item.ConcertId }) <span>|</span>
+        }
+        @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id, concertId = item.ConcertId })
+    </td>
+</tr>}
+    </tbody>
+</table>
+
+<script>$.ajax({
+        type: "GET",
+        url: "/Concerts/GetAllConcertCountries",
+        success: function (countries) {
+            countries.forEach(country => {
+                $("#concert-countries").append("<option>" + country + "</option>");
+            });
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/TicketTypes/GetAllTicketTypesType",
+        success: function (types) {
+            types.forEach(type => {
+                $("#ticket-types").append("<option>" + type + "</option>");
+            });
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });</script>

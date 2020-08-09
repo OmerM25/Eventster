@@ -1,0 +1,2 @@
+6,New York            ,1
+1,France              ,2

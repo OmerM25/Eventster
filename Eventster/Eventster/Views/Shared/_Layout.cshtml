@@ -1,29 +1,55 @@
-﻿<!DOCTYPE html>
+﻿@using Eventster.Controllers
+@using Microsoft.AspNetCore.Http;
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Eventster</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" runat="server" />
+
 </head>
-<body>
+<body onload="checkSession()">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Eventster</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Concerts" asp-action="Index">Concerts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Tickets</a>
                         </li>
+                        @if (Context.Session.GetString(UsersController.SessionName) != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About us</a>
+                            </li>
+                            <li style="position:absolute; right:85px;"><a class="nav-link text-dark" asp-controller="Users" id="WelcomeMessage"></a></li>
+                            <li style="position:absolute; right:20px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="LogOff" id="LogOff">Log Out</a></li>
+                        }
+                        else
+                        {
+                            <li style="position:absolute; right:10px;"><a class="nav-link text-dark" asp-controller="Users" asp-action="Login">Login</a></li>
+                            <li><a class="nav-link text-dark" asp-controller="Users" asp-action="Create">Sign Up</a></li>
+                        }
+                        @if (Context.Session.GetString(UsersController.SessionName) == "admin")
+                        {
+                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index" id="TwitterPost">Twitter Post</a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -44,5 +70,27 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    @Html.Raw(TempData["msg"]);
 </body>
 </html>
+
+<script>
+
+    function checkSession() {
+        $.ajax({
+            type: 'GET',
+            url: '/Users/checkSession',
+            success: function (data) {
+                // Checks if there is user that already logged on
+                if (data.isLogin) {
+                     // Inject messages in JQuery.
+                      $("#WelcomeMessage").text("Welcome " + data.userName);
+                 }
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+</script>
