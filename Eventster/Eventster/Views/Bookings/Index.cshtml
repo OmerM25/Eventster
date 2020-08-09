@@ -67,7 +67,7 @@
                     {
                         <a asp-controller="Bookings" asp-action="Delete" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Delete</a>
                         <a asp-controller="Bookings" asp-action="Details" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Details</a>
-                        <a asp-controller="Bookings" asp-action="Edit" asp-route-ClientId="@item.ClientId" asp-route-TicketId="@item.TicketId" asp-route-ConcertId="@item.ConcertId" asp-route-TicketsAmount="@item.TicketsAmount">Edit</a>
+                        <a asp-controller="Bookings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     }
                 </td>
             </tr>

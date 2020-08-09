@@ -43,10 +43,7 @@ namespace Eventster.Controllers
 
                 IQueryable<Booking> bookings = _context.Set<Booking>();
 
-                bookings = bookings.Include(b => b.Client).
-                    Include(b => b.Concert).
-                    Include(b => b.Ticket).
-                    Include(b => b.Ticket.TicketType);
+                bookings = bookings.Include(b => b.Client).Include(b => b.Concert).Include(b => b.Ticket).Include(b => b.Ticket.TicketType);
 
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -140,11 +137,14 @@ namespace Eventster.Controllers
         }
 
         // GET: Bookings/Edit/5
-        public IActionResult Edit(string ClientId, int ConcertId, int TicketId, int TicketsAmount)
+        public IActionResult Edit(int id)
         {
-            TicketsAmount = int.Parse(ModelState["TicketsAmount"].AttemptedValue);
+            if (id == null)
+            {
+                return NotFound("Booking was not found");
+            }
 
-            var booking = _context.Booking.Where(e => (e.TicketsAmount.Equals(TicketsAmount)) && (e.ClientId == ClientId) && (e.ConcertId == ConcertId) && (e.TicketId == TicketId)).FirstOrDefault();
+            var booking = _context.Booking.Where(e => (e.Id == id)).FirstOrDefault();
             
             if (booking == null)
             {
@@ -155,7 +155,7 @@ namespace Eventster.Controllers
             ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Name");
             ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type");
             ViewData["TicketId"] = new SelectList(_context.Ticket, "Id", "Id");
-            ViewData["TicketsAmount"] = TicketsAmount;
+            ViewData["TicketsAmount"] = booking.TicketsAmount;
 
             return View(booking);
         }
@@ -167,6 +167,12 @@ namespace Eventster.Controllers
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
             {
+                var origBooking = _context.Booking.Where(e => (e.Id == id)).FirstOrDefault();
+                origBooking.ConcertId = booking.ConcertId;
+                origBooking.ClientId = booking.ClientId;
+                origBooking.TicketId = booking.TicketId;
+                origBooking.TicketsAmount = booking.TicketsAmount;
+
                 if (id != booking.Id)
                 {
                     return NotFound();
@@ -178,14 +184,14 @@ namespace Eventster.Controllers
                 {
                     try
                     {
-                        _context.Update(booking);
+                        _context.Update(origBooking);
                         await _context.SaveChangesAsync();
-                        await ticket.EditNumOfTicketById(booking.TicketId, booking.ConcertId, 0);
+                        await ticket.EditNumOfTicketById(origBooking.TicketId, origBooking.ConcertId, 0);
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!BookingExists(booking.ClientId))
+                        if (!BookingExists(origBooking.ClientId))
                         {
                             return NotFound();
                         }
