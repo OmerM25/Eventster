@@ -1,4 +1,2 @@
-1,France              ,4
-1,France              ,1
 6,New York            ,1
-1,France              ,1
+1,France              ,2
