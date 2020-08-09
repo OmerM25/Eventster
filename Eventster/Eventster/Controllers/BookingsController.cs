@@ -103,6 +103,8 @@ namespace Eventster.Controllers
             ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type");
             ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Id");
             ViewData["TicketId"] = new SelectList(_context.Ticket, "Id", "Id");
+            ViewBag.pricePerTicket = "----";
+            ViewBag.total_booking_price = "----";
 
             return View();
         }
@@ -143,17 +145,16 @@ namespace Eventster.Controllers
             TicketsAmount = int.Parse(ModelState["TicketsAmount"].AttemptedValue);
 
             var booking = _context.Booking.Where(e => (e.TicketsAmount.Equals(TicketsAmount)) && (e.ClientId == ClientId) && (e.ConcertId == ConcertId) && (e.TicketId == TicketId)).FirstOrDefault();
-
+            
             if (booking == null)
             {
                 return NotFound("Booking was not found");
             }
-            else if (!CalculatePrice(booking))
-            {
 
-                return NotFound("Error on price calculation");
-            }
-
+            TempData["ErrMessageBooking"] = "";
+            ViewData["ConcertId"] = new SelectList(_context.Concert, "Id", "Name");
+            ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Type");
+            ViewData["TicketId"] = new SelectList(_context.Ticket, "Id", "Id");
             ViewData["TicketsAmount"] = TicketsAmount;
 
             return View(booking);
@@ -162,10 +163,15 @@ namespace Eventster.Controllers
         // POST: Booking/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("ClientId,ConcertId,TicketId,TicketsAmount")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClientId,ConcertId,TicketId,TicketsAmount")] Booking booking)
         {
             if (HttpContext.Session.GetString(UsersController.SessionName) != null)
             {
+                if (id != booking.Id)
+                {
+                    return NotFound();
+                }
+
                 TicketsController ticket = new TicketsController(_context);
 
                 if (ModelState.IsValid)
@@ -173,6 +179,7 @@ namespace Eventster.Controllers
                     try
                     {
                         _context.Update(booking);
+                        await _context.SaveChangesAsync();
                         await ticket.EditNumOfTicketById(booking.TicketId, booking.ConcertId, 0);
                         await _context.SaveChangesAsync();
                     }
@@ -251,32 +258,30 @@ namespace Eventster.Controllers
             return _context.Booking.Any(e => e.ClientId == id);
         }
 
-        private bool CalculatePrice(Booking booking)
+        private bool CalculatePrice(int ticketTypeId, int ticketsAmount, int concertId)
         {
             // Ticket validation
-            if (booking.TicketsAmount > 0)
+            if (ticketsAmount > 0)
             {
-                // Query the booking's ticket object.
-                Ticket ticket = _context.Ticket.Where(e => (e.Id == booking.TicketId) && (e.ConcertId == booking.ConcertId)).Include(b => b.TicketType).FirstOrDefault();
+                // Query the booking's ticket type object.
+                Ticket ticket = _context.Ticket.Include(ticket => ticket.TicketType).Where(t => (t.TicketTypeId == ticketTypeId) && (t.ConcertId == concertId)).FirstOrDefault();
 
-                // In case the ticket has not found
-                if ((ticket == null) || (ticket.TicketsLeft < booking.TicketsAmount))
+                // In case the ticket type has not found
+                if ((ticket == null) || (ticket.TicketsLeft < ticketsAmount))
                 {
-                    return false;
+                    return true;
                 }
 
                 int pricePerTicket = ticket.TicketType.Price;
-                int total_booking_price = pricePerTicket * booking.TicketsAmount;
+                int total_booking_price = pricePerTicket * ticketsAmount;
 
                 ViewBag.total_booking_price = total_booking_price;
                 ViewBag.pricePerTicket = pricePerTicket;
+            }
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            ViewBag.total_booking_price = 0;
+            ViewBag.pricePerTicket = 0;
+            return true;
         }
 
         public int CountOfTicketTypesOnBooking()
@@ -383,6 +388,10 @@ namespace Eventster.Controllers
         }
         private int GetLastBookingId()
         {
+            if (_context.Booking.Count() == 0)
+            {
+                return 0;
+            }
             return _context.Booking.Select(booking => booking.Id).Max();
         }
     }

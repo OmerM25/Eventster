@@ -199,6 +199,10 @@ namespace Eventster.Controllers
 
         private int GetLastConcertId()
         {
+            if (_context.Concert.Count() == 0)
+            {
+                return 0;
+            }
             return _context.Concert.Select(concert => concert.Id).Max();
         }
 

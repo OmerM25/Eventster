@@ -62,7 +62,7 @@ CREATE TABLE [dbo].[Booking] (
     [ConcertId]     INT       NOT NULL,
     [TicketId]      INT       NOT NULL,
     [TicketsAmount] INT       NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
+    [Id] INT NOT NULL PRIMARY KEY,
     CONSTRAINT [FK_Table_ToTable] FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Client] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Table_ToTable_1] FOREIGN KEY ([ConcertId]) REFERENCES [dbo].[Concert] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Table_ToTable_2] FOREIGN KEY ([TicketId]) REFERENCES [dbo].[Ticket] ([Id])
