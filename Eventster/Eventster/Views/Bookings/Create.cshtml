@@ -1,0 +1,232 @@
+﻿@model Eventster.Models.Booking
+@{ ViewData["Title"] = "Create Booking"; }
+<h2>@ViewData["Title"]</h2>
+<h4>Booking</h4>
+<hr />
+<div class="ErrMsg">
+    @TempData["ErrMessageBooking"]
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" id="client-id" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <div id="client-id-alert" hidden class="alert-color">No clients in the system</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Concert" class="control-label"></label>
+                <select id="concert-id" class="form-control" asp-for="ConcertId" asp-items="ViewBag.ConcertId" onchange="bookingParm.concertId=this.value;"></select>
+                <div id="concert-id-alert" hidden class="alert-color">No concerts in the system</div>
+            </div>
+            <div class="prediction-sector">
+                <div class="form-group" style="width:100%;">
+                    <label>Ticket Type: </label>
+                    <select id="ticket-type" asp-items="ViewBag.TicketTypeId" class="form-control" onchange="bookingParm.ticketTypeId=this.value; GenerateFreeTicket()"></select>
+                    <div id="ticket-type-alert" hidden class="alert-color">No ticket-types in the system</div>
+                </div>
+                <span id="ml-suggest" class="ml-suggest"></span>
+            </div>
+            <div class="form-group" style="width:100%;">
+                <label>Tickets Amount: </label>
+                <input asp-for="TicketsAmount" class="form-control" onchange="bookingParm.ticketsAmount=this.value; " />
+                <span asp-validation-for="TicketsAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="TicketId" class="control-label"></label>
+                <select id="ticket-id" asp-for="TicketId" class="form-control"></select>
+                <div style="color:red;" id="no-free-tickets" class="hide"></div>
+            </div>
+            <sector class="signature-sector">
+                <div>Client signature:</div>
+                <canvas id="signCanvas" width="350" height="200" class="sign-canvas"></canvas>
+            </sector>
+            <div class="form-group">
+                <input id="create-btn" type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    $(document).ready(function () {
+        const concertParm = {};
+
+        $("#concert-id").change(function () {
+            concertParm.concertId = $(this).children("option:selected").val();
+            console.log($(this))
+            console.log(concertParm);
+            GenerateFreeTicket();
+            GetRecommendedTicketTypeByConcertId();
+        })
+    })
+    function DisableCreate() {
+        $("#create-btn")[0].disabled = true;
+    }
+
+    function EnableCreate() {
+        $("#create-btn")[0].disabled = false;
+    }
+
+    var isEmptySelectList = false;
+
+    function CheckForEmptySelectLists() {
+        // In case not clients in the DB.
+        if (GetSelectAmount("client-id") == 0) {
+            isEmptySelectList = true;
+            DisableCreate();
+            $("#client-id").attr("hidden", true);
+            $("#client-id-alert").attr("hidden", false);
+
+        }
+
+        // In case not concerts in the DB.
+        if (GetSelectAmount("concert-id") == 0) {
+            isEmptySelectList = true;
+            DisableCreate();
+            $("#concert-id").attr("hidden", true);
+            $("#concert-id-alert").attr("hidden", false);
+        }
+
+        // In case not ticket-types in the DB.
+        if (GetSelectAmount("ticket-type") == 0) {
+            isEmptySelectList = true;
+            DisableCreate();
+            $("#ticket-type").attr("hidden", true);
+            $("#ticket-type").attr("hidden", false);
+        }
+    }
+
+    CheckForEmptySelectLists();
+
+    // Return the selected value on the select html element.
+    function GetSelectedValueById(id) {
+        var selectList = document.getElementById(id);
+        return selectList.options[selectList.selectedIndex].text;
+    }
+
+    // Return options amount on select html element.
+    function GetSelectAmount(id) {
+        var selectList = document.getElementById(id);
+        return selectList.options.length;
+    }
+
+    var bookingParm = {
+        "concertId": $("#concert-id").val(),
+        "ticketTypeId": $("#ticket-type").val()
+    };
+
+    GenerateFreeTicket();
+
+    function GenerateFreeTicket() {
+        $("#ticket-id").html("");
+        $.ajax({
+            type: "GET",
+            url: "/Tickets/GetFreeTicketByParms",
+            data: {
+                concertId: bookingParm.concertId,
+                ticketTypeId: bookingParm.ticketTypeId
+            },
+            success: function (tickets) {
+                if (tickets && tickets.length > 0) {
+                    !isEmptySelectList && EnableCreate()
+                    $("#ticket-id").removeClass("hide");
+                    $("#no-free-tickets").addClass("hide");
+
+                    tickets.forEach(ticket => {
+                        $("#ticket-id").append("<option>" + ticket.id + "</option>");
+                    });
+                }
+                else {
+                    DisableCreate();
+                    $("#no-free-tickets").html("No free <b>" + GetSelectedValueById('ticket-type') +
+                        "</b> tickets in concert <b>" + GetSelectedValueById('concert-id') + "</b>");
+
+                    $("#ticket-id").addClass("hide");
+                    $("#no-free-tickets").removeClass("hide");
+                }
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }
+
+
+
+    // ------------ This code is for canvas draw with mouse ------------ //
+
+    var mousePressed = false;
+    var lastX, lastY;
+    var ctx;
+
+    ctx = document.getElementById('signCanvas').getContext("2d");
+
+    $('#signCanvas').mousedown(function (e) {
+        mousePressed = true;
+        Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+    });
+
+    $('#signCanvas').mousemove(function (e) {
+        if (mousePressed) {
+            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        }
+    });
+
+    $('#signCanvas').mouseup(function (e) {
+        mousePressed = false;
+    });
+    $('#signCanvas').mouseleave(function (e) {
+        mousePressed = false;
+    });
+
+    function Draw(x, y, isDown) {
+        if (isDown) {
+            ctx.beginPath();
+            ctx.strokeStyle = $('#selColor').val();
+            ctx.lineWidth = $('#selWidth').val();
+            ctx.lineJoin = "round";
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+        lastX = x; lastY = y;
+    }
+
+    // ------------ This code is for canvas draw with mouse ------------ //
+
+    // ------------- ML CODE -------------
+
+    // Recommend ticket type for any concert id that selected.
+    function GetRecommendedTicketTypeByConcertId() {
+        var concertId = bookingParm.concertId;
+        $("#ml-suggest").html("<label>...</label>");
+
+        $.ajax({
+            type: "GET",
+            url: "/Bookings/GetRecommendedTicketTypeByConcertId?concertId=" + concertId,
+            success: function (ticketTypeName) {
+                if (ticketTypeName) {
+                    $("#ml-suggest").html("<label style='color:black;text-align:left;'>Recomended:</label>" + ticketTypeName);
+                }
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+
+    }
+
+    GetRecommendedTicketTypeByConcertId();
+
+
+    // ------------- ML CODE -------------</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

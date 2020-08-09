@@ -1,0 +1,46 @@
+﻿@model Eventster.Models.Booking
+@{ ViewData["Title"] = "Edit Booking"; }
+<h2>@ViewData["Title"]</h2>
+<div class="ErrMsg">
+    @TempData["ErrMessageBooking"]
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" id="client-id" asp-for="ClientId" />
+            <input type="hidden" id="ticket-id" asp-for="TicketId" />
+            <h4>Booking</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="TicketsAmount" class="control-label"></label>
+                <input asp-for="TicketsAmount" class="form-control" />
+                <span asp-validation-for="TicketsAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConcertId" class="control-label"></label>
+                <select asp-for="ConcertId" class="form-control" asp-items="ViewBag.ConcertId"></select>
+                <span asp-validation-for="ConcertId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.TicketTypeId" class="control-label"></label>
+                <select asp-for="Ticket.TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
+                <span asp-validation-for="Ticket.TicketTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(model => model.ClientId): </label> @Html.DisplayFor(model => model.ClientId)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

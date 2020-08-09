@@ -1,0 +1,55 @@
+1) Go to "Server Explorer" -> Open "Eventster.mdf" -> Extend "Tables" 
+
+2) Right click "User" -> Choose "Open table data" -> Insert these details manually and save:
+'admin', '123456'
+'client', '123456'
+
+3) Right click "Eventster.mdf" -> Choose "New query" -> Copy and paste all of these SQL commands to that screen -> Click on "Execute" (At the top on the left, green button)
+
+DELETE FROM Client
+DELETE FROM Concert
+DELETE FROM Ticket
+DELETE FROM TicketType
+
+
+INSERT INTO CLIENT (Id, FirstName, LastName, PhoneNumber, CreditCard) VALUES(208547240, 'John', 'Doe', '0527871499', '2738949574850293');
+INSERT INTO CLIENT (Id, FirstName, LastName, PhoneNumber, CreditCard) VALUES(207933413, 'Jane', 'Doe', '0527877563', '2738949574850293');
+
+
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(1, 'Pitbull', 'France', 'Paris', 'Flowers St. 1', '20210618 10:34:09 AM', 3.0, 48.8566, 2.3522);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(2, 'Beyonce', 'France', 'Paris', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 48.8566, 2.3522);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(3, 'Sia', 'Netherlands', 'Amsterdam', 'Flowers St. 1', '20210618 10:34:09 AM', 3.0, 52.3667, 4.8945);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(4, 'Rihanna', 'California', 'Los Angeles', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 34.0522, -118.2437);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(5, 'Noa kirel', 'Israel', 'Tel Aviv', 'Flowers St. 1', '20210618 10:34:09 AM', 4.0, 32.0853, 34.7818);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(6, 'Jason Derulo', 'New York', 'New York', 'Flowers St. 1', '20210618 10:34:09 AM', 5.0, 40.7128, -74.0060);
+INSERT INTO CONCERT (Id, Name, Country, City, Address, DateTime, ArtistRank, XCord, YCord) VALUES(7, 'Yuval Dayan', 'Israel', 'Beer Sheva', 'Flowers St. 1', '20210618 10:34:09 AM', 4.0, 31.2530, 34.7915);
+
+
+INSERT INTO TICKETTYPE (Id, Type, Description, Price) VALUES(1, 'Normal', 'Regular standing ticket.', 250);
+INSERT INTO TICKETTYPE (Id, Type, Description, Price) VALUES(2, 'Student', 'Discount for students. Regular standing ticket.', 150);
+INSERT INTO TICKETTYPE (Id, Type, Description, Price) VALUES(3, 'VIP', 'Close to the stage. Private area.', 500);
+INSERT INTO TICKETTYPE (Id, Type, Description, Price) VALUES(4, 'Golden Ring', 'Close to the stage. Free food and drink. Private area.', 800);
+
+
+INSERT INTO Ticket (TicketsLeft, ConcertId, TicketTypeId) VALUES(1000, 1, 1);
+INSERT INTO Ticket (TicketsLeft, ConcertId, TicketTypeId) VALUES(1000, 2, 1);
+
+
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(1, 1000, 1, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(2, 1000, 2, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(3, 1000, 3, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(4, 1000, 4, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(5, 500, 5, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(6, 1000, 6, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(7, 200, 7, 1);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(8, 50, 1, 2);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(9, 100, 4, 2);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(10, 100, 1, 3);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(11, 200, 2, 3);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(12, 200, 3, 3);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(13, 70, 4, 3);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(14, 100, 5, 3);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(15, 50, 1, 4);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(16, 30, 2, 4);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(17, 50, 3, 4);
+INSERT INTO Ticket (Id, TicketsLeft, ConcertId, TicketTypeId) VALUES(18, 45, 7, 4);

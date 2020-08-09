@@ -1,0 +1,30 @@
+﻿@font-face {
+    font-family: Concerts;
+    src: url('./Scribble Note DEMO.otf');
+}
+
+.main-titles-container {
+    column-count: 3;
+    column-rule: 2px solid #717171;
+    text-align: center;
+    font-size: 18px;
+    margin: 40px;
+    color: #717171;
+}
+
+.link-text {
+    text-shadow: 2px 1px 4px grey;
+    transition: font-size 4s;
+}
+
+.concerts-headline {
+    font-size: 30px;
+    font-family: Concerts;
+}
+
+.multi-search {
+    width: 300px;
+    border: 1px solid black;
+    padding: 12px;
+    border-radius: 10px;
+}
